@@ -100,7 +100,12 @@ namespace TrilhaApiDesafio.Controllers
             tarefaBanco.Titulo = tarefa.Titulo;
             tarefaBanco.Descricao = tarefa.Descricao;
             tarefaBanco.Data = tarefa.Data;
-            tarefaBanco.Status = tarefa.Status;
+
+            // Correção!!!
+            if (tarefa.Status.HasFlag(EnumStatusTarefa.Pendente))
+                tarefaBanco.Status = EnumStatusTarefa.Pendente;
+            else if (tarefa.Status.HasFlag(EnumStatusTarefa.Finalizado))
+                tarefaBanco.Status = EnumStatusTarefa.Finalizado;
 
             _context.Tarefas.Add(tarefa);
             _context.SaveChanges();
